@@ -97,7 +97,7 @@ public class PexMigratorPlugin extends JavaPlugin {
 		groups.forEach((uuid, groupSet) -> {
 			um.loadUser(uuid, uuids.get(uuid)).thenAccept((user) -> {
 				groupSet.forEach((group) -> {
-					user.getNodes().add(InheritanceNode.builder(group).value(true).build());
+					user.data().add(InheritanceNode.builder(group).value(true).build());
 				});
 				um.saveUser(user);
 			});
