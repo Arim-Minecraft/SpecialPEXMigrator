@@ -1,0 +1,10 @@
+name: ${project.name}
+main: ${project.groupId}.pexmigrator.PexMigratorPlugin
+version: ${project.version}
+author: A248
+description: A specialised PEX to LuckPerms migrator.
+
+commands:
+  pexmigrator:
+    usage: /pexmigrator
+    description: PexMigrator command
