@@ -111,12 +111,15 @@ public class PexMigratorPlugin extends JavaPlugin {
 				switch (args[0].toLowerCase()) {
 				case "reloadsource":
 					reloadSource();
+					sendMessage(sender, "&aCompleted reloading source permissions.yml from SpecialPEXMigrator/permissions.yml");
 					return true;
 				case "prepare":
 					prepare();
+					sendMessage(sender, "&aPrepared. Are you ready?");
 					return true;
 				case "execute":
 					execute();
+					sendMessage(sender, "&a&oExecuted!");
 					return true;
 				default:
 					break;
