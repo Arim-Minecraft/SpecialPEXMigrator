@@ -15,7 +15,10 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
+import net.luckperms.api.model.group.Group;
+import net.luckperms.api.model.group.GroupManager;
 import net.luckperms.api.model.user.UserManager;
 import net.luckperms.api.node.types.InheritanceNode;
 
@@ -92,12 +95,17 @@ public class PexMigratorPlugin extends JavaPlugin {
 	}
 	
 	private void execute() {
-		UserManager um = LuckPermsProvider.get().getUserManager();
+		LuckPerms lp = LuckPermsProvider.get();
+		UserManager um = lp.getUserManager();
+		GroupManager gm = lp.getGroupManager();
 		//uuids.forEach((uuid, name) -> um.savePlayerData(uuid, name));
 		groups.forEach((uuid, groupSet) -> {
 			um.loadUser(uuid, uuids.get(uuid)).thenAccept((user) -> {
 				groupSet.forEach((group) -> {
-					user.data().add(InheritanceNode.builder(group).value(true).build());
+					Group g = gm.loadGroup(group).join().orElse(null);
+					if (g != null) {
+						user.data().add(InheritanceNode.builder(g).value(true).build());
+					}
 				});
 				um.saveUser(user);
 			});
