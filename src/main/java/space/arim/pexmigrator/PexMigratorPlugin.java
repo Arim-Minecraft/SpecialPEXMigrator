@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
+
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -122,12 +123,14 @@ public class PexMigratorPlugin extends JavaPlugin {
 					sendMessage(sender, "&aCompleted reloading source permissions.yml from SpecialPEXMigrator/permissions.yml");
 					return true;
 				case "prepare":
+					long start1 = System.currentTimeMillis();
 					prepare();
-					sendMessage(sender, "&aPrepared. Are you ready?");
+					sendMessage(sender, "&aPrepared in " + (System.currentTimeMillis() - start1) + " ms. Are you ready?");
 					return true;
 				case "execute":
+					long start2 = System.currentTimeMillis();
 					execute();
-					sendMessage(sender, "&a&oExecuted!");
+					sendMessage(sender, "&a&oExecuted in " + (System.currentTimeMillis() - start2) + " ms!");
 					return true;
 				default:
 					break;
